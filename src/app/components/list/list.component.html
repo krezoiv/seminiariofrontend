@@ -1,0 +1,94 @@
+<body>
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card card-body">
+                  <form [formGroup]="newIntegranteForm" class="mat-elevation-z8">
+                        <div class="form-group">
+                            <input type="text" formControlName="carnet" class="form-control" placeholder="ingrese carnet">
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" formControlName="nombres" class="form-control" placeholder="ingrese nombres">
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" formControlName="apellidos" class="form-control" placeholder="ingrese apellidos">
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" formControlName="telefono" class="form-control" placeholder="ingrese telefono">
+                        </div><br>
+                        <div class="form-group">
+                            <input type="text" formControlName="email" class="form-control" placeholder="ingrese email">
+                        </div>
+                        <br>
+                        <div class="form-group" class="d-grid gap-2">
+                            <button type="button"  class="btn btn-info" (click)="saveIntegrante();">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-8">
+
+<table id="idTable" class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">carnet</th>
+        <th scope="col">nombres</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Email</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let list of listItegrantes; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{list.carnet}}</td>
+        <td>{{list.nombres}}</td>
+        <td>{{list.apellidos}}</td>
+        <td>{{list.telefono}}</td>
+        <td>{{list.email}}</td>
+        <td>
+            <a href="" class="btn btn-secondary" (click)=openEdit(list)> <i class="fas fa-marker"></i> </a> &nbsp;
+            <a href="" class="btn btn-danger" (click)="deleteIntegrante(list.id)"> <i class="far fa-trash-alt"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+<!--
+
+
+    <div>
+    <h1>Integrantes:</h1>
+</div>
+
+<table id="idTable" class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">carnet</th>
+        <th scope="col">nombres</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let list of listItegrantes; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{list.carnet}}</td>
+        <td>{{list.nombres}}</td>
+        <td>{{list.apellidos}}</td>
+        <td>{{list.telefono}}</td>
+        <td>{{list.email}}</td>
+      </tr>
+    </tbody>
+  </table>
+-->
