@@ -9,7 +9,6 @@ import { AddComponent } from './components/add/add.component';
 import { UpdateComponent } from './components/update/update.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DialogComponent } from './components/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ListComponent,
     AddComponent,
     UpdateComponent,
-    DialogComponent
+
   ],
   imports: [
     BrowserModule,

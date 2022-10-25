@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Integrantes } from 'src/app/models';
 
 import { ApiServicesService } from 'src/app/service/api-services.service';
-import { DialogComponent, } from '../dialog/dialog.component';
+import swal from 'sweetalert2'
+
 import { UpdateComponent } from '../update/update.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-list',
@@ -15,10 +16,12 @@ import { UpdateComponent } from '../update/update.component';
 })
 export class ListComponent implements OnInit {
 
+ipAddress!:string;
 listItegrantes!: any [];
-readonly width : string= '30'
+divSave : boolean= true;
+divUpdate : boolean = true
 
-
+id : string = ""
 newIntegranteForm : FormGroup = this.fb.group({
 
   carnet: [''],
@@ -31,13 +34,19 @@ newIntegranteForm : FormGroup = this.fb.group({
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    public dialogRef: MatDialog,
-    private apiService: ApiServicesService
+    private activateRouter : ActivatedRoute,
+    private apiService: ApiServicesService,
+    
   ) { }
 
   ngOnInit(): void {
+    this.getIP();
     this.getIntegrantes();
+    //this.id = this.activateRouter.snapshot.params['id'];
+    //console.log(this.id)
   }
+
+  
 
   getIntegrantes() {
     this.apiService.getIntegrantes()
@@ -47,11 +56,19 @@ newIntegranteForm : FormGroup = this.fb.group({
 
   }
 
+  
+
   addIntegrante(){
     this.apiService.addIntegrante(this.newIntegranteForm.value)
       .subscribe(data => {
-        
-      //  this.ngOnInit();
+        swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Agregado',
+          showConfirmButton: false,
+          timer: 2500
+        })
+        this.ngOnInit();
         this.newIntegranteForm.reset();
         
       })
@@ -66,17 +83,22 @@ newIntegranteForm : FormGroup = this.fb.group({
   deleteIntegrante(id: string){
     this.apiService.deleteIntegrante(id)
       .subscribe(data => {
-       // this.ngOnInit();
+        swal.fire({
+          position: 'top-end',
+          icon: 'warning',
+          title: 'Eliminado',
+          showConfirmButton: false,
+          timer: 2500
+        })
+       this.ngOnInit();
       })
   }
 
-
-  openEdit(list: Integrantes){
-   const dialogRef = this.dialogRef.open(UpdateComponent,{
-    width:'300',
-    data: list
-   })
-  
-  }
+  getIP()  
+  {  
+    this.apiService.getIPAddress().subscribe((res:any)=>{  
+      this.ipAddress=res.ip;  
+    });  
+  }  
   
 }

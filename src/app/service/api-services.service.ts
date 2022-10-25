@@ -13,38 +13,43 @@ export class ApiServicesService {
 
   url = 'http://localhost:3000/api';
   constructor(
-    private _http : HttpClient,
+    private _http: HttpClient,
 
   ) { }
 
-getIntegrantes(){
-  return this._http.get(this.url);
+  getIntegrantes() {
+    return this._http.get(this.url);
+  }
+
+  getOneIntegrantes(id: string): Observable<Integrantes> {
+    return this._http.get<Integrantes>(this.url + '/' + id);
+  }
+
+  addIntegrante(integrante: any) {
+    return this._http.post(this.url, integrante);
+  }
+
+  deleteIntegrante(id: string) {
+    return this._http.delete(this.url + '/' + id);
+  }
+
+  updateIntegrante(integrantes: Integrantes, id: string) {
+    return this._http.put(this.url + '/' + id, integrantes);
+  }
+
+  public getIPAddress()  
+  {  
+    return this._http.get("http://api.ipify.org/?format=json");  
+  }  
+
 }
 
-getOneIntegrantes(id:string):Observable<any>{
-  return this._http.get(this.url+'/one');
-}
 
-addIntegrante(integrante: any){
-  return this._http.post(this.url, integrante);
-}
-
-deleteIntegrante(id: string){
-  return this._http.delete(this.url+'/'+id);
-}
-
-updateIntegrante(integrantes: Integrantes, id : string){
-  return this._http.put(`this.url/'${id}`, integrantes);
-}
-
-}
-
-
-export interface IntegrantesAlumnos{
-  id?:string;
-  carnet?:string;
-  nombres?:string;
-  apellidos?:string;
-  telefono?:string;
-  email?:string;
+export interface IntegrantesAlumnos {
+  id?: string;
+  carnet?: string;
+  nombres?: string;
+  apellidos?: string;
+  telefono?: string;
+  email?: string;
 }

@@ -15,5 +15,5 @@ export interface Integrantes_I{
   }
   
   export interface Int{
-     Integrantes:[]
+     rows:[]
   }
