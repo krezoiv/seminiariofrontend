@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Integrantes } from 'src/app/models';
+import { DOCUMENT } from '@angular/common';
+
 
 import { ApiServicesService } from 'src/app/service/api-services.service';
 import swal from 'sweetalert2'
@@ -15,7 +17,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-
+  domain = '';
 ipAddress!:string;
 listItegrantes!: any [];
 divSave : boolean= true;
@@ -32,6 +34,7 @@ newIntegranteForm : FormGroup = this.fb.group({
 
 })
   constructor(
+    @Inject(DOCUMENT) private document: any,
     private fb: FormBuilder,
     private router: Router,
     private activateRouter : ActivatedRoute,
@@ -42,6 +45,8 @@ newIntegranteForm : FormGroup = this.fb.group({
   ngOnInit(): void {
     this.getIP();
     this.getIntegrantes();
+    this.domain = this.document.location.hostname;
+        console.log(this.domain);
     //this.id = this.activateRouter.snapshot.params['id'];
     //console.log(this.id)
   }

@@ -3,38 +3,39 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Integrantes } from '../models';
-import { UpdateComponent } from '../components/update/update.component';
-import { Int, Integrantes_I } from '../interfaces';
+import { environment } from 'src/environments/environment';
 
+const url ='http://44.211.198.198:3000/api';
 @Injectable({
   providedIn: 'root'
 })
 export class ApiServicesService {
+  
+ 
 
-  url = 'http://localhost:3000/api';
   constructor(
     private _http: HttpClient,
 
   ) { }
 
   getIntegrantes() {
-    return this._http.get(this.url);
+    return this._http.get(url);
   }
 
   getOneIntegrantes(id: string): Observable<Integrantes> {
-    return this._http.get<Integrantes>(this.url + '/' + id);
+    return this._http.get<Integrantes>(url + '/' + id);
   }
 
   addIntegrante(integrante: any) {
-    return this._http.post(this.url, integrante);
+    return this._http.post(url, integrante);
   }
 
   deleteIntegrante(id: string) {
-    return this._http.delete(this.url + '/' + id);
+    return this._http.delete(url + '/' + id);
   }
 
   updateIntegrante(integrantes: Integrantes, id: string) {
-    return this._http.put(this.url + '/' + id, integrantes);
+    return this._http.put(url + '/' + id, integrantes);
   }
 
   public getIPAddress()  
