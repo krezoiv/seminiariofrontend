@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Integrantes } from '../models';
 import { environment } from 'src/environments/environment';
 
-const url ='http://44.211.198.198:3000/api';
+const url ='http://3.82.193.170:3000/api';
 @Injectable({
   providedIn: 'root'
 })

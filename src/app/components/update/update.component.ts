@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Integrantes_I } from 'src/app/interfaces';
@@ -12,7 +13,8 @@ import swal from 'sweetalert2'
   styleUrls: ['./update.component.css']
 })
 export class UpdateComponent implements OnInit {
-
+  domain = '';
+ipAddress!:string;
   id : string = ""
   listItegrantes!: any [];
   int : Integrantes ={ id:'', carnet:'', nombres:'', apellidos:'', telefono:'', email:''}
@@ -27,6 +29,7 @@ export class UpdateComponent implements OnInit {
   
   })
   constructor(
+    @Inject(DOCUMENT) private document: any,
     private fb: FormBuilder,
     private router: Router,
     private activateRouter : ActivatedRoute,
@@ -34,6 +37,10 @@ export class UpdateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getIP();
+    this.getIntegrantes();
+    this.domain = this.document.location.hostname;
+        console.log(this.domain);
     this.getIntegrantes();
     this.id = this.activateRouter.snapshot.params['id'];
 
@@ -75,5 +82,11 @@ export class UpdateComponent implements OnInit {
 
   }
 
+  getIP()  
+  {  
+    this.apiService.getIPAddress().subscribe((res:any)=>{  
+      this.ipAddress=res.ip;  
+    });  
+  }  
   
 }

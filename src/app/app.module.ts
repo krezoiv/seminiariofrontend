@@ -9,6 +9,7 @@ import { AddComponent } from './components/add/add.component';
 import { UpdateComponent } from './components/update/update.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatDialogModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{
+    provide: LocationStrategy, useClass:HashLocationStrategy,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
